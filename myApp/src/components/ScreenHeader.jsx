@@ -1,30 +1,45 @@
-import { StyleSheet, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { COLORS, LAYOUT, TYPOGRAPHY } from "../constants/theme";
+import { View, Text, StyleSheet } from "react-native";
 
-export default function ScreenHeader({ title }) {
+import { COLORS } from "../constants/theme";
+
+export default function ScreenHeader({ title, subtitle }) {
   return (
-    <LinearGradient
-      colors={[COLORS.primary, COLORS.primaryDark]}
-      end={{ x: 1, y: 0.5 }}
-      start={{ x: 0, y: 0.5 }}
-      style={styles.container}
-    >
+    <View style={styles.container}>
+      <Text style={styles.subtitle}>{subtitle}</Text>
+
       <Text style={styles.title}>{title}</Text>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: LAYOUT.headerHeight,
-    justifyContent: "center",
-    paddingHorizontal: 12,
+    paddingHorizontal: 24,
+
+    paddingTop: 10,
+
+    paddingBottom: 18,
   },
+
+  subtitle: {
+    fontSize: 15,
+
+    color: COLORS.textMuted,
+
+    marginBottom: 8,
+
+    fontWeight: "500",
+  },
+
   title: {
-    color: COLORS.surface,
-    fontSize: TYPOGRAPHY.caption,
-    lineHeight: 16,
-    fontWeight: "600",
+    fontSize: 34,
+
+    lineHeight: 38,
+
+    fontWeight: "800",
+
+    letterSpacing: -1.5,
+
+    color: "#07162E",
   },
 });

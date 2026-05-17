@@ -6,13 +6,15 @@ import MealDayCard from "../components/MealDayCard";
 import PrimaryButton from "../components/PrimaryButton";
 import ScreenHeader from "../components/ScreenHeader";
 
-import { COLORS, TYPOGRAPHY } from "../constants/theme";
+import { COLORS, SPACING } from "../constants/theme";
+
 import { mealDays, tabs } from "../data/mockData";
 
 export default function MealPlanScreen({ setScreen }) {
   return (
     <View style={styles.container}>
       <AppStatusBar />
+
       <ScreenHeader title="Meal Plan" />
 
       <ScrollView
@@ -21,7 +23,7 @@ export default function MealPlanScreen({ setScreen }) {
       >
         <View style={styles.noticeStrip}>
           <Text style={styles.noticeText}>
-            Balanced meals based on goal & calorie intake
+            Balanced meals based on your nutrition goal and calorie intake
           </Text>
         </View>
 
@@ -32,12 +34,12 @@ export default function MealPlanScreen({ setScreen }) {
 
       <View style={styles.buttonSection}>
         <PrimaryButton
-          title="Generate List"
+          title="Generate Shopping List"
           onPress={() => setScreen("shopping")}
         />
       </View>
 
-      <BottomTabBar activeTab="plan" onTabPress={setScreen} tabs={tabs} />
+      <BottomTabBar activeTab="meal" onTabPress={setScreen} tabs={tabs} />
     </View>
   );
 }
@@ -45,40 +47,52 @@ export default function MealPlanScreen({ setScreen }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    maxWidth: 360,
+
     width: "100%",
-    alignSelf: "center",
-    backgroundColor: COLORS.surface,
+
+    backgroundColor: COLORS.background,
   },
 
   scrollContent: {
-    paddingHorizontal: 12,
-    paddingTop: 10,
-    paddingBottom: 20,
-    gap: 10,
-    backgroundColor: COLORS.canvas,
+    paddingHorizontal: SPACING.md,
+
+    paddingTop: SPACING.sm,
+
+    paddingBottom: 140,
+
+    gap: SPACING.md,
+
+    backgroundColor: COLORS.background,
   },
 
   noticeStrip: {
-    minHeight: 28,
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    borderLeftWidth: 3,
-    borderLeftColor: COLORS.success,
-    backgroundColor: COLORS.successSoft,
-    borderRadius: 6,
+    backgroundColor: COLORS.primarySoft,
+
+    borderRadius: 22,
+
+    paddingVertical: SPACING.md,
+    paddingHorizontal: SPACING.md,
+
+    marginBottom: SPACING.md,
   },
 
   noticeText: {
-    color: COLORS.successText,
-    fontSize: TYPOGRAPHY.tiny,
-    fontWeight: "500",
+    color: COLORS.primaryDark,
+
+    fontSize: 15,
+
+    lineHeight: 24,
+
+    fontWeight: "600",
   },
 
   buttonSection: {
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    backgroundColor: COLORS.surface,
-    padding: 12,
+    paddingHorizontal: SPACING.md,
+
+    paddingTop: SPACING.sm,
+
+    paddingBottom: SPACING.lg,
+
+    backgroundColor: COLORS.background,
   },
 });

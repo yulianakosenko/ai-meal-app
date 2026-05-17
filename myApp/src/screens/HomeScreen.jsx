@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, View, TextInput } from "react-native";
+
+import { View, Text, TextInput, StyleSheet } from "react-native";
+
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 import AppStatusBar from "../components/AppStatusBar";
 import BottomTabBar from "../components/BottomTabBar";
@@ -8,13 +11,17 @@ import PrimaryButton from "../components/PrimaryButton";
 import ScreenHeader from "../components/ScreenHeader";
 import SectionCard from "../components/SectionCard";
 
-import { COLORS } from "../constants/theme";
+import { COLORS, SPACING } from "../constants/theme";
+
 import { nutritionGoals, tabs } from "../data/mockData";
 
 export default function HomeScreen({ setScreen, setData }) {
   const [budget, setBudget] = useState("");
+
   const [people, setPeople] = useState("");
+
   const [days, setDays] = useState("");
+
   const [calories, setCalories] = useState("");
 
   const [currentGoals, setCurrentGoals] = useState(nutritionGoals || []);
@@ -45,61 +52,116 @@ export default function HomeScreen({ setScreen, setData }) {
   return (
     <View style={styles.container}>
       <AppStatusBar />
-      <ScreenHeader title="Smart Grocery" />
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <SectionCard title="Basic Info">
-          <TextInput
-            placeholder="Budget (€)"
-            value={budget}
-            onChangeText={setBudget}
-            style={styles.input}
-            keyboardType="numeric"
-          />
+      <ScreenHeader subtitle="AI Nutrition Planner" title="Smart Grocery" />
 
-          <View style={styles.row}>
-            <TextInput
-              placeholder="People"
-              value={people}
-              onChangeText={setPeople}
-              style={[styles.input, styles.half]}
-              keyboardType="numeric"
-            />
-
-            <TextInput
-              placeholder="Days"
-              value={days}
-              onChangeText={setDays}
-              style={[styles.input, styles.half]}
-              keyboardType="numeric"
-            />
-          </View>
-        </SectionCard>
-
-        <SectionCard title="Nutrition Goal">
-          <View style={styles.goalGrid}>
-            {(currentGoals || []).map((goal) => (
-              <GoalOption
-                key={goal.id}
-                active={goal.active}
-                label={goal.label}
-                onPress={() => handleGoalPress(goal.id)}
+      <View style={styles.content}>
+        <View style={styles.topSection}>
+          <SectionCard title="Basic Info">
+            <View style={styles.inputWrapper}>
+              <Feather
+                name="dollar-sign"
+                size={24}
+                color={COLORS.textMuted}
+                style={styles.inputIcon}
               />
-            ))}
+
+              <TextInput
+                placeholder="Budget (€)"
+                placeholderTextColor={COLORS.textMuted}
+                value={budget}
+                onChangeText={setBudget}
+                style={styles.input}
+                keyboardType="numeric"
+              />
+            </View>
+
+            <View style={styles.row}>
+              <View style={[styles.inputWrapper, styles.half]}>
+                <Ionicons
+                  name="people-outline"
+                  size={22}
+                  color={COLORS.textMuted}
+                  style={styles.inputIcon}
+                />
+
+                <TextInput
+                  placeholder="People"
+                  placeholderTextColor={COLORS.textMuted}
+                  value={people}
+                  onChangeText={setPeople}
+                  style={styles.input}
+                  keyboardType="numeric"
+                />
+              </View>
+
+              <View style={[styles.inputWrapper, styles.half]}>
+                <Ionicons
+                  name="calendar-outline"
+                  size={22}
+                  color={COLORS.textMuted}
+                  style={styles.inputIcon}
+                />
+
+                <TextInput
+                  placeholder="Days"
+                  placeholderTextColor={COLORS.textMuted}
+                  value={days}
+                  onChangeText={setDays}
+                  style={styles.input}
+                  keyboardType="numeric"
+                />
+              </View>
+            </View>
+          </SectionCard>
+
+          <SectionCard title="Nutrition Goal">
+            <View style={styles.goalGrid}>
+              {(currentGoals || []).map((goal) => (
+                <GoalOption
+                  key={goal.id}
+                  active={goal.active}
+                  label={goal.label}
+                  onPress={() => handleGoalPress(goal.id)}
+                />
+              ))}
+            </View>
+
+            <View style={styles.inputWrapper}>
+              <Ionicons
+                name="flame-outline"
+                size={22}
+                color={COLORS.textMuted}
+                style={styles.inputIcon}
+              />
+
+              <TextInput
+                placeholder="Calories per day"
+                placeholderTextColor={COLORS.textMuted}
+                value={calories}
+                onChangeText={setCalories}
+                style={styles.input}
+                keyboardType="numeric"
+              />
+            </View>
+          </SectionCard>
+        </View>
+
+        <View style={styles.bottomSection}>
+          <PrimaryButton title="✨ Generate Plan" onPress={handleGenerate} />
+
+          <View style={styles.privacyRow}>
+            <Ionicons
+              name="lock-closed-outline"
+              size={16}
+              color={COLORS.textMuted}
+            />
+
+            <Text style={styles.privacyText}>
+              Your plan is 100% personalized and private
+            </Text>
           </View>
-
-          <TextInput
-            placeholder="Calories per day"
-            value={calories}
-            onChangeText={setCalories}
-            style={styles.input}
-            keyboardType="numeric"
-          />
-        </SectionCard>
-      </ScrollView>
-
-      <View style={styles.buttonSection}>
-        <PrimaryButton title="Plan with AI" onPress={handleGenerate} />
+        </View>
       </View>
 
       <BottomTabBar activeTab="home" onTabPress={setScreen} tabs={tabs} />
@@ -110,46 +172,110 @@ export default function HomeScreen({ setScreen, setData }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    maxWidth: 360,
+
     width: "100%",
-    alignSelf: "center",
-    backgroundColor: COLORS.surface,
+
+    backgroundColor: COLORS.background,
   },
 
-  scrollContent: {
-    padding: 12,
-    gap: 10,
-    backgroundColor: COLORS.canvas,
+  content: {
+    flex: 1,
+
+    paddingHorizontal: SPACING.md,
+
+    paddingBottom: 118,
   },
 
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    padding: 12,
-    fontSize: 14,
-    backgroundColor: "#fff",
+  topSection: {
+    gap: 16,
+  },
+
+  row: {
+    flexDirection: "row",
+
+    alignItems: "center",
+
+    gap: 12,
   },
 
   half: {
     flex: 1,
   },
 
-  row: {
+  inputWrapper: {
     flexDirection: "row",
-    gap: 8,
+
+    alignItems: "center",
+
+    height: 68,
+
+    backgroundColor: COLORS.surface,
+
+    borderRadius: 22,
+
+    paddingHorizontal: 20,
+
+    borderWidth: 1,
+
+    borderColor: "rgba(0,0,0,0.04)",
+
+    shadowColor: "#000",
+
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+
+    shadowOpacity: 0.03,
+
+    shadowRadius: 18,
+
+    elevation: 3,
+  },
+
+  input: {
+    flex: 1,
+
+    height: 62,
+
+    fontSize: 16,
+
+    color: COLORS.text,
+  },
+
+  inputIcon: {
+    marginRight: 12,
   },
 
   goalGrid: {
     flexDirection: "row",
+
     flexWrap: "wrap",
-    gap: 6,
-    marginBottom: 10,
+
+    gap: 10,
+
+    marginBottom: 18,
   },
 
-  buttonSection: {
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    padding: 12,
+  bottomSection: {
+    marginTop: 18,
+  },
+
+  privacyRow: {
+    flexDirection: "row",
+
+    alignItems: "center",
+
+    justifyContent: "center",
+
+    gap: 8,
+  },
+
+  privacyText: {
+    color: COLORS.textMuted,
+
+    fontSize: 14,
+
+    fontWeight: "500",
   },
 });

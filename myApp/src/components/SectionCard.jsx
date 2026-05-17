@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS, RADII, SHADOW } from "../constants/theme";
 
-export default function SectionCard({ children, title }) {
+import { COLORS, RADII, SHADOW, SPACING, TYPOGRAPHY } from "../constants/theme";
+
+export default function SectionCard({ title, children }) {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>
+
       <View style={styles.content}>{children}</View>
     </View>
   );
@@ -12,26 +14,30 @@ export default function SectionCard({ children, title }) {
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: 12,
-    marginTop: 8,
-    borderRadius: RADII.sm,
-    borderWidth: 1,
-    borderColor: COLORS.border,
     backgroundColor: COLORS.surface,
-    paddingTop: 9,
-    paddingHorizontal: 9,
-    paddingBottom: 8,
+
+    borderRadius: RADII.lg,
+
+    padding: SPACING.md,
+
     ...SHADOW,
   },
+
   title: {
-    color: COLORS.primaryDark,
-    fontSize: 8,
-    lineHeight: 12,
-    fontWeight: "600",
+    color: COLORS.primary,
+
+    fontSize: TYPOGRAPHY.caption,
+
+    fontWeight: "700",
+
     textTransform: "uppercase",
+
+    letterSpacing: 1,
+
+    marginBottom: SPACING.md,
   },
+
   content: {
-    marginTop: 6,
-    gap: 6,
+    gap: SPACING.sm,
   },
 });

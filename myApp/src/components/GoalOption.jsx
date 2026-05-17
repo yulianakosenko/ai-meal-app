@@ -1,59 +1,102 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { COLORS, RADII } from "../constants/theme";
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
 
-export default function GoalOption({ active, label, onPress }) {
-  if (active) {
-    return (
-      <TouchableOpacity activeOpacity={0.9} onPress={onPress} style={styles.touchable}>
-        <LinearGradient
-          colors={[COLORS.primary, COLORS.primaryDark]}
-          end={{ x: 1, y: 0.5 }}
-          start={{ x: 0, y: 0.5 }}
-          style={styles.option}
-        >
-          <Text style={styles.activeText}>{label}</Text>
-        </LinearGradient>
-      </TouchableOpacity>
-    );
-  }
+import {
+  COLORS,
+} from "../constants/theme";
 
+export default function GoalOption({
+  label,
+  active,
+  onPress,
+}) {
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={onPress} style={[styles.option, styles.idle]}>
-      <Text style={styles.idleText}>{label}</Text>
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={onPress}
+      style={[
+        styles.container,
+
+        active &&
+          styles.activeContainer,
+      ]}
+    >
+
+      <Text
+        style={[
+          styles.label,
+
+          active &&
+            styles.activeLabel,
+        ]}
+      >
+        {label}
+      </Text>
+
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  touchable: {
-    width: "48.5%",
-  },
-  option: {
-    width: "48.5%",
-    minHeight: 38,
-    alignItems: "center",
+  container: {
+    minWidth: 116,
+
+    height: 62,
+
+    paddingHorizontal: 24,
+
+    borderRadius: 24,
+
     justifyContent: "center",
-    borderRadius: RADII.xs,
-    paddingHorizontal: 6,
-  },
-  idle: {
+
+    alignItems: "center",
+
+    backgroundColor:
+      COLORS.surface,
+
     borderWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.surface,
+
+    borderColor:
+      "rgba(0,0,0,0.05)",
+
+    shadowColor: "#000",
+
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+
+    shadowOpacity: 0.03,
+
+    shadowRadius: 14,
+
+    elevation: 3,
   },
-  activeText: {
-    color: COLORS.surface,
-    fontSize: 8,
-    lineHeight: 12,
-    fontWeight: "500",
-    textAlign: "center",
+
+  activeContainer: {
+    backgroundColor:
+      "#E7F5EC",
+
+    borderColor:
+      "#BEE7CC",
   },
-  idleText: {
-    color: COLORS.textMuted,
-    fontSize: 8,
-    lineHeight: 12,
-    fontWeight: "400",
-    textAlign: "center",
+
+  label: {
+    fontSize: 17,
+
+    fontWeight: "600",
+
+    color:
+      COLORS.textMuted,
+  },
+
+  activeLabel: {
+    color:
+      COLORS.primaryDark,
+
+    fontWeight: "700",
   },
 });

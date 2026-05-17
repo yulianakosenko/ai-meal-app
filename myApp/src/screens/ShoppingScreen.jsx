@@ -1,51 +1,84 @@
-import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import AppStatusBar from "../components/AppStatusBar";
 import BottomTabBar from "../components/BottomTabBar";
+import PrimaryButton from "../components/PrimaryButton";
 import ScreenHeader from "../components/ScreenHeader";
-import ShoppingItem from "../components/ShoppingItem";
 
-import { COLORS } from "../constants/theme";
-import { shoppingItems, tabs } from "../data/mockData";
+import { COLORS, SHADOW, SPACING } from "../constants/theme";
+
+import { tabs } from "../data/mockData";
 
 export default function ShoppingScreen({ setScreen }) {
-  const [items, setItems] = useState(shoppingItems);
+  const products = [
+    {
+      id: 1,
+      name: "Chicken Breast",
+      amount: "800 g",
+      price: "€8.50",
+    },
 
-  const toggleItem = (id) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, checked: !item.checked } : item,
-      ),
-    );
-  };
+    {
+      id: 2,
+      name: "Avocado",
+      amount: "4 pcs",
+      price: "€5.20",
+    },
 
-  const collected = items.filter((i) => i.checked).length;
+    {
+      id: 3,
+      name: "Greek Yogurt",
+      amount: "1 kg",
+      price: "€4.90",
+    },
+
+    {
+      id: 4,
+      name: "Brown Rice",
+      amount: "2 kg",
+      price: "€6.10",
+    },
+  ];
 
   return (
     <View style={styles.container}>
       <AppStatusBar />
+
       <ScreenHeader title="Shopping List" />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {items.map((item) => (
-          <ShoppingItem
-            key={item.id}
-            name={item.name}
-            details={item.details}
-            checked={item.checked}
-            onPress={() => toggleItem(item.id)}
-          />
+        <View style={styles.summaryCard}>
+          <Text style={styles.summaryTitle}>Weekly Budget</Text>
+
+          <Text style={styles.summaryPrice}>€24.70</Text>
+
+          <Text style={styles.summarySubtitle}>
+            Healthy groceries for your personalized meal plan
+          </Text>
+        </View>
+
+        {products.map((item) => (
+          <View key={item.id} style={styles.card}>
+            <View style={styles.left}>
+              <View style={styles.checkbox} />
+
+              <View>
+                <Text style={styles.name}>{item.name}</Text>
+
+                <Text style={styles.amount}>{item.amount}</Text>
+              </View>
+            </View>
+
+            <Text style={styles.price}>{item.price}</Text>
+          </View>
         ))}
       </ScrollView>
 
-      <View style={styles.footer}>
-        <Text style={styles.counter}>
-          {collected} of {items.length} items collected
-        </Text>
+      <View style={styles.buttonSection}>
+        <PrimaryButton title="Continue" onPress={() => setScreen("summary")} />
       </View>
 
       <BottomTabBar activeTab="shopping" onTabPress={setScreen} tabs={tabs} />
@@ -56,31 +89,122 @@ export default function ShoppingScreen({ setScreen }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    maxWidth: 360,
-    width: "100%",
-    alignSelf: "center",
-    backgroundColor: COLORS.surface,
+
+    backgroundColor: COLORS.background,
   },
 
   scrollContent: {
-    paddingHorizontal: 12,
-    paddingTop: 10,
-    paddingBottom: 20,
-    gap: 10,
-    backgroundColor: COLORS.canvas,
+    paddingHorizontal: SPACING.md,
+
+    paddingTop: SPACING.sm,
+
+    paddingBottom: 140,
   },
 
-  footer: {
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    backgroundColor: COLORS.surface,
-    padding: 12,
+  summaryCard: {
+    backgroundColor: COLORS.primarySoft,
+
+    borderRadius: SPACING.xl,
+
+    padding: SPACING.xl,
+
+    marginBottom: SPACING.lg,
   },
 
-  counter: {
-    textAlign: "center",
-    fontSize: 13,
+  summaryTitle: {
+    fontSize: 16,
+
+    color: COLORS.primaryDark,
+
+    marginBottom: SPACING.sm,
+  },
+
+  summaryPrice: {
+    fontSize: 44,
+
+    fontWeight: "700",
+
+    color: COLORS.primaryDark,
+
+    marginBottom: SPACING.sm,
+  },
+
+  summarySubtitle: {
+    fontSize: 15,
+
+    lineHeight: 24,
+
     color: COLORS.textMuted,
-    fontWeight: "500",
+  },
+
+  card: {
+    backgroundColor: COLORS.surface,
+
+    borderRadius: SPACING.xl,
+
+    padding: SPACING.lg,
+
+    marginBottom: SPACING.md,
+
+    flexDirection: "row",
+
+    justifyContent: "space-between",
+
+    alignItems: "center",
+
+    ...SHADOW,
+  },
+
+  left: {
+    flexDirection: "row",
+
+    alignItems: "center",
+
+    gap: SPACING.md,
+  },
+
+  checkbox: {
+    width: 22,
+    height: 22,
+
+    borderRadius: 999,
+
+    borderWidth: 2,
+
+    borderColor: COLORS.primary,
+  },
+
+  name: {
+    fontSize: 17,
+
+    fontWeight: "600",
+
+    color: COLORS.text,
+
+    marginBottom: 4,
+  },
+
+  amount: {
+    fontSize: 14,
+
+    color: COLORS.textMuted,
+  },
+
+  price: {
+    fontSize: 16,
+
+    fontWeight: "700",
+
+    color: COLORS.primaryDark,
+  },
+
+  buttonSection: {
+    paddingHorizontal: SPACING.md,
+
+    paddingTop: SPACING.sm,
+
+    paddingBottom: SPACING.lg,
+
+    backgroundColor: COLORS.background,
   },
 });

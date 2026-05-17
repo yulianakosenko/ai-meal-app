@@ -1,36 +1,67 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+
 import { LinearGradient } from "expo-linear-gradient";
-import { COLORS, LAYOUT, RADII, TYPOGRAPHY } from "../constants/theme";
+
+import { COLORS } from "../constants/theme";
 
 export default function PrimaryButton({ title, onPress }) {
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={onPress} style={styles.touchable}>
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={onPress}
+      style={styles.wrapper}
+    >
       <LinearGradient
-        colors={[COLORS.primary, COLORS.primaryDark]}
-        end={{ x: 1, y: 0.5 }}
-        start={{ x: 0, y: 0.5 }}
+        colors={["#45B36B", "#2F8F57"]}
+        start={{
+          x: 0,
+          y: 0,
+        }}
+        end={{
+          x: 1,
+          y: 1,
+        }}
         style={styles.button}
       >
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.text}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  touchable: {
-    width: "100%",
+  wrapper: {
+    shadowColor: "#2F8F57",
+
+    shadowOffset: {
+      width: 0,
+      height: 14,
+    },
+
+    shadowOpacity: 0.22,
+
+    shadowRadius: 24,
+
+    elevation: 10,
   },
+
   button: {
-    minHeight: LAYOUT.buttonHeight,
-    borderRadius: RADII.pill,
-    alignItems: "center",
+    height: 64,
+
+    borderRadius: 30,
+
     justifyContent: "center",
+
+    alignItems: "center",
   },
-  title: {
-    color: COLORS.surface,
-    fontSize: TYPOGRAPHY.tiny,
-    lineHeight: 15,
-    fontWeight: "600",
+
+  text: {
+    color: COLORS.white,
+
+    fontSize: 20,
+
+    fontWeight: "700",
+
+    letterSpacing: -0.5,
   },
 });
