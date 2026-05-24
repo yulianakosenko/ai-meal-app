@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
 
 import { Feather, Ionicons } from "@expo/vector-icons";
 
@@ -10,12 +10,15 @@ import GoalOption from "../components/GoalOption";
 import PrimaryButton from "../components/PrimaryButton";
 import ScreenHeader from "../components/ScreenHeader";
 import SectionCard from "../components/SectionCard";
+import SearchBar from "../components/SearchBar";
 
 import { COLORS, SPACING } from "../constants/theme";
 
 import { nutritionGoals, tabs } from "../data/mockData";
 
 export default function HomeScreen({ setScreen, setData }) {
+  const [search, setSearch] = useState("");
+
   const [budget, setBudget] = useState("");
 
   const [people, setPeople] = useState("");
@@ -55,7 +58,12 @@ export default function HomeScreen({ setScreen, setData }) {
 
       <ScreenHeader subtitle="AI Nutrition Planner" title="Smart Grocery" />
 
-      <View style={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <SearchBar value={search} onChangeText={setSearch} />
+
         <View style={styles.topSection}>
           <SectionCard title="Basic Info">
             <View style={styles.inputWrapper}>
@@ -162,7 +170,7 @@ export default function HomeScreen({ setScreen, setData }) {
             </Text>
           </View>
         </View>
-      </View>
+      </ScrollView>
 
       <BottomTabBar activeTab="home" onTabPress={setScreen} tabs={tabs} />
     </View>
@@ -178,12 +186,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
 
-  content: {
-    flex: 1,
-
+  scrollContent: {
     paddingHorizontal: SPACING.md,
 
-    paddingBottom: 118,
+    paddingBottom: 180,
   },
 
   topSection: {
@@ -207,7 +213,7 @@ const styles = StyleSheet.create({
 
     alignItems: "center",
 
-    height: 68,
+    height: 64,
 
     backgroundColor: COLORS.surface,
 
@@ -236,11 +242,13 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
 
-    height: 62,
+    height: 60,
 
     fontSize: 16,
 
     color: COLORS.text,
+
+    outlineStyle: "none",
   },
 
   inputIcon: {
@@ -254,11 +262,13 @@ const styles = StyleSheet.create({
 
     gap: 10,
 
-    marginBottom: 18,
+    marginBottom: 16,
   },
 
   bottomSection: {
     marginTop: 18,
+
+    marginBottom: 20,
   },
 
   privacyRow: {
@@ -269,6 +279,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
 
     gap: 8,
+
+    marginTop: 14,
   },
 
   privacyText: {
