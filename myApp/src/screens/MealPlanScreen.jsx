@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, FlatList, StyleSheet, Text, View } from "react-native";
 
 import AppStatusBar from "../components/AppStatusBar";
 import BottomTabBar from "../components/BottomTabBar";
@@ -27,9 +27,15 @@ export default function MealPlanScreen({ setScreen }) {
           </Text>
         </View>
 
-        {mealDays.map((day) => (
-          <MealDayCard key={day.id} meals={day.meals} title={day.title} />
-        ))}
+        <FlatList
+          data={mealDays}
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContent}
+          renderItem={({ item }) => (
+            <MealDayCard meals={item.meals} title={item.title} />
+          )}
+        />
       </ScrollView>
 
       <View style={styles.buttonSection}>
@@ -94,5 +100,9 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.lg,
 
     backgroundColor: COLORS.background,
+  },
+  listContent: {
+    paddingTop: SPACING.md,
+    paddingBottom: 120,
   },
 });
