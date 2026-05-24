@@ -1,8 +1,10 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
 
 import { COLORS, SHADOW } from "../constants/theme";
+
+const { width } = Dimensions.get("window");
 
 const mealImages = {
   Breakfast: "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
@@ -72,6 +74,9 @@ const styles = StyleSheet.create({
   },
 
   card: {
+    // Dynamic width for responsive layout
+    width: width - 40,
+
     backgroundColor: COLORS.surface,
 
     borderRadius: 32,
