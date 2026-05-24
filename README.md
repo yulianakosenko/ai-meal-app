@@ -1,156 +1,106 @@
-# 🍽️ AI Meal Planner – React Native Components
+````md id="g2v9ra"
+# 🥗 AI Meal Planner
 
-Проєкт створений у межах домашнього завдання з метою реалізації базових UI компонентів у React Native на основі попередньо розробленого дизайну у Figma.
-
----
-
-## 🎯 Мета роботи
-
-* Реалізувати ключові компоненти інтерфейсу
-* Застосувати стилізацію через Flexbox
-* Забезпечити адаптивність під різні екрани
-* Використати модульну архітектуру та пропси
+Premium wellness-focused React Native application for generating personalized AI meal plans and shopping lists.
 
 ---
 
-## 🧩 Основні компоненти
-
-У проєкті реалізовано такі компоненти:
-
-* **PrimaryButton** — кнопка з можливістю передачі тексту та дії
-* **ScreenHeader** — заголовок екрану
-* **BottomTabBar** — нижня навігація
-* **ProcessingSpinner** — індикатор завантаження
-* **MealDayCard** — картка з денним планом харчування
-* **ShoppingItem** — елемент списку покупок
-* **SummaryInsightCard** — аналітична картка
+![App Preview](./src/assets/app-preview.png)
 
 ---
 
-## ⚙️ Приклади використання пропсів
+# ✨ Features
 
-```jsx
-<PrimaryButton 
-  title="Generate Plan" 
-  onPress={handleGenerate} 
-/>
-
-<MealDayCard 
-  day="Monday" 
-  meals={data.meals} 
-/>
-```
-
-Компоненти є гнучкими та перевикористовуваними завдяки пропсам.
+- Personalized AI meal planning
+- Nutrition goal selection
+- Dynamic shopping list generation
+- Responsive React Native layout
+- Reusable component architecture
+- Modern wellness UI
+- FlatList implementation
+- Platform adaptive styling
 
 ---
 
-## 🎨 Стилізація
+# 📱 Screens
 
-* Використано `StyleSheet.create()`
-* Побудова layout через Flexbox:
-
-  * `flexDirection`
-  * `justifyContent`
-  * `alignItems`
-* Централізована система кольорів:
-
-```js
-COLORS.primary
-COLORS.surface
-COLORS.textMuted
-```
-
-* Дотримано єдиної системи відступів та типографіки
+- Home Screen
+- Meal Plan Screen
+- Shopping List
+- Processing Screen
+- History Screen
 
 ---
 
-## 📱 Адаптивність
+# 🧩 Reusable Components
 
-Для адаптації інтерфейсу використано:
-
-```jsx
-import { useWindowDimensions } from "react-native";
-
-const { width } = useWindowDimensions();
-
-<View style={{ width: width * 0.9 }} />
-```
-
-* Компоненти коректно відображаються на різних розмірах екранів
-* Протестовано вертикальну орієнтацію
-
-Також використано платформо-залежні стилі:
-
-```js
-Platform.select({
-  ios: { paddingTop: 20 },
-  android: { paddingTop: 10 },
-})
-```
+| Component | Purpose |
+|---|---|
+| `PrimaryButton` | Reusable CTA buttons |
+| `SearchBar` | Meal search input |
+| `MealDayCard` | Meal presentation cards |
+| `GoalOption` | Nutrition goal selection |
+| `BottomTabBar` | Bottom navigation |
+| `ScreenHeader` | Reusable headers |
+| `SectionCard` | Layout sections |
+| `AppStatusBar` | Status bar management |
 
 ---
 
-## 🏗️ Архітектура
+# 🏗 Architecture
 
-Проєкт має модульну структуру:
-
-```bash
+```txt
 src/
-├── components/
-│   ├── PrimaryButton.jsx
-│   ├── ScreenHeader.jsx
-│   ├── BottomTabBar.jsx
-│   ├── MealDayCard.jsx
-│   └── ...
 │
-├── screens/
-├── utils/
+├── components/
+├── constants/
 ├── data/
-└── constants/
-```
-
-* Кожен компонент винесений в окремий файл
-* Використано пропси для динамічних даних
-* Відсутні жорстко закодовані значення (magic numbers)
+├── screens/
+└── utils/
+````
 
 ---
 
-## 📸 Screenshots компонентів
+# ⚙️ Technologies
 
-> (додайте скріншоти з додатку)
-
-* Button
-* Card
-* List
-* Header
-* Navigation
+* React Native
+* Expo
+* JavaScript
+* FlatList
+* Flexbox
+* Expo Vector Icons
+* Responsive Design
+* Platform.select()
+* Dimensions API
 
 ---
 
-## 🚀 Запуск проєкту
+# 🎨 UI / UX
+
+The application follows a premium wellness design language:
+
+* soft shadows
+* rounded cards
+* adaptive layouts
+* reusable design system
+* iOS-inspired interface
+* clean spacing system
+
+---
+
+# 🚀 Installation
 
 ```bash
-cd myApp
 npm install
 npx expo start
 ```
 
 ---
 
-## 📌 Висновок
+# 👩‍💻 Author
 
-У процесі виконання завдання було:
+**Yuliya Kostenko**
 
-* реалізовано базові UI компоненти React Native
-* застосовано стилізацію через Flexbox
-* забезпечено адаптивність інтерфейсу
-* побудовано модульну архітектуру
-
-Це дозволило створити масштабований та перевикористовуваний інтерфейс.
+````
 
 ---
-
-## 👩‍💻 Автор
-
-Yuliya Kostenko
