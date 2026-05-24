@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Platform, View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "../constants/theme";
 
@@ -14,9 +14,13 @@ export default function ScreenHeader({ title, subtitle }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 24,
+    // iOS and Android spacing adjustments
+    paddingTop: Platform.select({
+      ios: 20,
+      android: 10,
+    }),
 
-    paddingTop: 10,
+    paddingHorizontal: 24,
 
     paddingBottom: 18,
   },
