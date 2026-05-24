@@ -1,4 +1,6 @@
-import { ScrollView, FlatList, StyleSheet, Text, View } from "react-native";
+import React from "react";
+
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import AppStatusBar from "../components/AppStatusBar";
 import BottomTabBar from "../components/BottomTabBar";
@@ -17,26 +19,22 @@ export default function MealPlanScreen({ setScreen }) {
 
       <ScreenHeader title="Meal Plan" />
 
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
+      <FlatList
+        data={mealDays}
+        keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.noticeStrip}>
-          <Text style={styles.noticeText}>
-            Balanced meals based on your nutrition goal and calorie intake
-          </Text>
-        </View>
-
-        <FlatList
-          data={mealDays}
-          keyExtractor={(item) => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.listContent}
-          renderItem={({ item }) => (
-            <MealDayCard meals={item.meals} title={item.title} />
-          )}
-        />
-      </ScrollView>
+        contentContainerStyle={styles.listContent}
+        ListHeaderComponent={
+          <View style={styles.noticeStrip}>
+            <Text style={styles.noticeText}>
+              Balanced meals based on your nutrition goal and calorie intake
+            </Text>
+          </View>
+        }
+        renderItem={({ item }) => (
+          <MealDayCard meals={item.meals} title={item.title} />
+        )}
+      />
 
       <View style={styles.buttonSection}>
         <PrimaryButton
@@ -59,14 +57,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
 
-  scrollContent: {
+  listContent: {
     paddingHorizontal: SPACING.md,
 
     paddingTop: SPACING.sm,
 
-    paddingBottom: 140,
-
-    gap: SPACING.md,
+    paddingBottom: 240,
 
     backgroundColor: COLORS.background,
   },
@@ -77,6 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 22,
 
     paddingVertical: SPACING.md,
+
     paddingHorizontal: SPACING.md,
 
     marginBottom: SPACING.md,
@@ -93,16 +90,14 @@ const styles = StyleSheet.create({
   },
 
   buttonSection: {
+    position: "absolute",
+
+    left: 0,
+    right: 0,
+    bottom: 92,
+
     paddingHorizontal: SPACING.md,
 
-    paddingTop: SPACING.sm,
-
-    paddingBottom: SPACING.lg,
-
-    backgroundColor: COLORS.background,
-  },
-  listContent: {
-    paddingTop: SPACING.md,
-    paddingBottom: 120,
+    backgroundColor: "transparent",
   },
 });
